@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "target": "ES2022",
+        "lib": [
+            "ES2023"
+        ],
+        "module": "Node16",
+        "moduleResolution": "node16",
+        "baseUrl": "./",
+        "rootDir": "./src",
+        "outDir": "./dist",
+        "sourceMap": true,
+        "strict": true,
+        "noImplicitReturns": true,
+        "removeComments": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+    },
+    "include": [
+        "./src/**/*.ts",
+    ],
+    "exclude": [
+        "./node_modules/*",
+        "./dist"
+    ]
+}

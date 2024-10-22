@@ -1,0 +1,23 @@
+{
+    "name": "file-merger",
+    "version": "1.0.0",
+    "description": "A CLI project created with nodejs to merge files",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "build": "tsc",
+        "start": "npm run build && node dist/index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "nodejs",
+        "cli",
+        "files"
+    ],
+    "author": "Aghata Truta",
+    "license": "MIT",
+    "devDependencies": {
+        "@types/node": "^22.7.7",
+        "typescript": "^5.6.3"
+    }
+}

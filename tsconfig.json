@@ -6,21 +6,26 @@
         ],
         "module": "Node16",
         "moduleResolution": "node16",
-        "baseUrl": "./",
-        "rootDir": "./src",
-        "outDir": "./dist",
+        "baseUrl": ".",
+        "rootDir": "src",
+        "outDir": "dist",
         "sourceMap": true,
         "strict": true,
         "noImplicitReturns": true,
         "removeComments": true,
         "esModuleInterop": true,
         "skipLibCheck": true,
+        "paths": {
+            "@/*": [
+                "src/*"
+            ]
+        }
     },
     "include": [
-        "./src/**/*.ts",
+        "src/**/*.ts",
     ],
     "exclude": [
-        "./node_modules/*",
-        "./dist"
+        "node_modules",
+        "dist"
     ]
 }

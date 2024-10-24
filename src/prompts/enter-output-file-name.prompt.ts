@@ -5,6 +5,13 @@ export const enterOutputFileName = async (): Promise<string> => {
     const outputFileName = await text({
         message: "Enter the output file name (without extension):",
         placeholder: "mergedFiles",
+        validate(value) {
+            if (value) {
+                return;
+            }
+
+            return "⚠️ Output file name cannot be empty.";
+        },
     });
 
     if (isCancel(outputFileName)) {

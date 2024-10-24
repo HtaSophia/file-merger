@@ -6,7 +6,7 @@ import { validFilesOption } from "../utils/validators/files-option.validator.js"
 export const enterFilePaths = async (fileExtension: FileExtension): Promise<string[]> => {
     const filePaths = await text({
         message: "Enter the file paths (separated by comma):",
-        placeholder: "path/to/file.pdf",
+        placeholder: "/path/to/file.pdf, /file.pdf",
         validate(value) {
             if (validFilesOption(value, fileExtension)) {
                 return;

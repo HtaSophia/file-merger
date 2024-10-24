@@ -1,4 +1,4 @@
 export type CommandOptions = {
     files: string[];
-    outputFileName: string;
+    output: string; //NOTE - output file name
 };

@@ -14,7 +14,7 @@ export class PromptOptions {
     ): Promise<CommandOptions> {
         const promptOptions: CommandOptions = {
             files: !options.files?.length ? await this.askForFiles(fileExtension) : options.files,
-            outputFileName: !options.outputFileName ? await this.askForOutputFileName() : options.outputFileName,
+            output: !options.output ? await this.askForOutputFileName() : options.output,
         };
 
         return promptOptions;

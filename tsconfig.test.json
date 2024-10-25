@@ -1,0 +1,19 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "types": [
+            "node",
+            "jest"
+        ],
+        "typeRoots": [
+            "../../node_modules/@types"
+        ],
+        "moduleResolution": "Node",
+        "resolveJsonModule": true
+    },
+    "include": [
+        "./src/**/*.spec.ts",
+        "./test/**/*.spec.ts"
+    ],
+    "exclude": []
+}

@@ -5,9 +5,12 @@
             "ES2023"
         ],
         "module": "Node16",
-        "moduleResolution": "node16",
-        "baseUrl": ".",
-        "rootDir": "src",
+        "moduleResolution": "Node16",
+        "baseUrl": "./",
+        "rootDirs": [
+            "./src",
+            "./test"
+        ],
         "outDir": "dist",
         "sourceMap": true,
         "strict": true,
@@ -15,12 +18,17 @@
         "removeComments": true,
         "esModuleInterop": true,
         "skipLibCheck": true,
+        "typeRoots": [
+            "./node_modules/@types"
+        ],
     },
     "include": [
-        "src/**/*.ts",
+        "./src/**/*.ts",
     ],
     "exclude": [
-        "node_modules",
-        "dist"
-    ]
+        "./node_modules",
+        "./dist",
+        "./test",
+        "./src/**/*.spec.ts",
+    ],
 }

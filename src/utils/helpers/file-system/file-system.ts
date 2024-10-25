@@ -12,16 +12,6 @@ export class FileSystem implements IFileSystem {
         return extname(filePath).toLowerCase() === expectedExtension;
     }
 
-    public static isValidPath(path: string): boolean {
-        try {
-            const normalizedPath = FileSystem.normalizePath(path);
-            accessSync(normalizedPath, constants.R_OK);
-            return true;
-        } catch (error) {
-            return false;
-        }
-    }
-
     public static isValidFileName(fileName: string): { valid: boolean; reason?: string } {
         if (FORBIDDEN_CHARS_REGEX.test(fileName) || RESERVED_NAMES_REGEX.test(fileName)) {
             return {
@@ -45,6 +35,20 @@ export class FileSystem implements IFileSystem {
         }
 
         return { valid: true };
+    }
+
+    public static isValidPath(path: string): boolean {
+        try {
+            const normalizedPath = FileSystem.normalizePath(path);
+            accessSync(normalizedPath, constants.R_OK);
+            return true;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    public static isValidPathAndFileExtension(path: string, expectedExtension: FileExtension): boolean {
+        return FileSystem.isValidPath(path) && FileSystem.hasFileExtension(path, expectedExtension);
     }
 
     public static normalizePath(path: string): string {

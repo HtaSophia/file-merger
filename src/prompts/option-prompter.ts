@@ -1,14 +1,18 @@
-import { CommandOptions } from "../../utils/types/command-options.js";
-import { confirmFileSelection } from "../confirm-file-selection.prompt.js";
-import { FileExtension } from "../../utils/types/file-extension.js";
-import { getFilesFromCurrentDirectory } from "../../utils/helpers/readers/pdf-reader.js";
+import { CommandOptions } from "../utils/types/command-options.js";
+import { confirmFileSelection } from "./confirm-file-selection.prompt.js";
+import { CURR_DIR } from "../utils/constants/system-info.const.js";
+import { FileExtension } from "../utils/types/file-extension.js";
+import { IFileSystem } from "../utils/helpers/file-system/file-system.interface.js";
 
-import { enterFilePaths } from "../enter-file-paths.prompt.js";
-import { enterOutputFileName } from "../enter-output-file-name.prompt.js";
-import { selectFiles } from "../select-files.prompt.js";
+import { enterFilePaths } from "./enter-file-paths.prompt.js";
+import { enterOutputFileName } from "./enter-output-file-name.prompt.js";
+import { selectFiles } from "./select-files.prompt.js";
+import { IOptionPrompter } from "./option-prompter.interface.js";
 
-export class PromptOptions {
-    public async handleMissingOptions(
+export class OptionPrompter implements IOptionPrompter {
+    constructor(private readonly fileSystem: IFileSystem) {}
+
+    public async promptForMissingOptions(
         options: Partial<CommandOptions>,
         fileExtension: FileExtension
     ): Promise<CommandOptions> {
@@ -24,7 +28,7 @@ export class PromptOptions {
         const selectFromCurrentDirectory = await confirmFileSelection();
 
         if (selectFromCurrentDirectory) {
-            const pdfFileNames = await getFilesFromCurrentDirectory(fileExtension);
+            const pdfFileNames = await this.fileSystem.getPdfFiles(CURR_DIR);
 
             if (pdfFileNames.length) {
                 return selectFiles(pdfFileNames);

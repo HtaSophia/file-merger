@@ -1,24 +1,28 @@
 import { isCancel, text } from "@clack/prompts";
 import { cancelProcess } from "../utils/helpers/clack/cancel-process.js";
 import { FileExtension } from "../utils/types/file-extension.js";
-import { validFilesOption } from "../utils/validators/files-option.validator.js";
+import { FileSystem } from "../utils/helpers/file-system/file-system.js";
 
 export const enterFilePaths = async (fileExtension: FileExtension): Promise<string[]> => {
     const filePaths = await text({
         message: "Enter the file paths (separated by comma):",
-        placeholder: "/path/to/file.pdf, /file.pdf",
-        validate(value) {
-            if (validFilesOption(value, fileExtension)) {
-                return;
-            }
-
-            return `⚠️ Invalid file paths. Please provide valid file paths.`;
-        },
+        placeholder: "C://path/to/file.pdf, ./file.pdf",
+        validate: (value) => validateFilePaths(value, fileExtension),
     });
 
     if (isCancel(filePaths)) {
         cancelProcess();
     }
 
-    return (filePaths as string).split(",");
+    return splitFilePaths(filePaths as string);
+};
+
+const splitFilePaths = (filePaths: string): string[] => filePaths.split(",").map((path) => path.trim());
+
+const validateFilePaths = (filePaths: string, fileExtension: FileExtension): string | void => {
+    const paths = splitFilePaths(filePaths);
+
+    if (!paths.every((path) => FileSystem.isValidPathAndFileExtension(path, fileExtension))) {
+        return `Invalid file paths. Please provide valid file paths.`;
+    }
 };

@@ -3,6 +3,7 @@ import { confirmFileSelection } from "./confirm-file-selection.prompt.js";
 import { CURR_DIR } from "../utils/constants/system-info.const.js";
 import { FileExtension } from "../utils/types/file-extension.js";
 import { IFileSystem } from "../utils/helpers/file-system/file-system.interface.js";
+import { FileSystem } from "../utils/helpers/file-system/file-system.js";
 
 import { enterFilePaths } from "./enter-file-paths.prompt.js";
 import { enterOutputFileName } from "./enter-output-file-name.prompt.js";
@@ -16,12 +17,11 @@ export class OptionPrompter implements IOptionPrompter {
         options: Partial<CommandOptions>,
         fileExtension: FileExtension
     ): Promise<CommandOptions> {
-        const promptOptions: CommandOptions = {
-            files: !options.files?.length ? await this.askForFiles(fileExtension) : options.files,
-            output: !options.output ? await this.askForOutputFileName() : options.output,
-        };
+        const files = !options.files?.length ? await this.askForFiles(fileExtension) : options.files;
+        const output = !options.output ? await this.askForOutputFileName() : options.output;
 
-        return promptOptions;
+        const normalizedFiles = files.map((file) => FileSystem.normalizePath(file));
+        return { files: normalizedFiles, output };
     }
 
     private async askForFiles(fileExtension: FileExtension): Promise<string[]> {

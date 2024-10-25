@@ -1,7 +1,7 @@
 import { Command, createCommand, InvalidArgumentError } from "commander";
-import { validFilesOption } from "../utils/validators/files-option.validator.js";
-import { FileExtension } from "../utils/types/file-extension.js";
 import { FileCommand } from "../utils/types/file-command.js";
+import { FileExtension } from "../utils/types/file-extension.js";
+import { FileSystem } from "../utils/helpers/file-system/file-system.js";
 import { IAction } from "../actions/action.interface.js";
 
 export abstract class AbstractFileCommand implements FileCommand {
@@ -9,22 +9,30 @@ export abstract class AbstractFileCommand implements FileCommand {
 
     public abstract build(): Command;
 
-    protected create(name: string, description: string, type: FileExtension): Command {
+    protected create(name: string, description: string, fileExtension: FileExtension): Command {
         return createCommand(name)
+            .hook("preAction", (_thisCommand, actionCommand) => {
+                this.validateFiles(actionCommand.args, fileExtension);
+            })
             .description(description)
-            .option<string[]>("-f, --files <files>", "list of comma-separated file paths to merge", (value) =>
-                this.parseFilesArg(value, type)
-            )
-            .option<string>("-o, --output <output>", "output file name (without extension)", (value) => value.trim());
+            .argument("[files...]", "list of file paths to merge ")
+            .option<string>("-o, --output <output>", "output file name", (value) => this.parseOutput(value));
     }
 
-    private parseFilesArg(filesSeparatedByComma: string, type: FileExtension): string[] {
-        const files = filesSeparatedByComma.split(",");
+    private parseOutput(output: string): string {
+        const [fileName, extension] = output.trim().split(".")[0];
+        const { valid, reason } = FileSystem.isValidFileName(fileName);
 
-        if (!validFilesOption(files, type)) {
-            throw new InvalidArgumentError("Invalid file paths");
+        if (!valid) {
+            throw new InvalidArgumentError(reason ?? "Invalid output file name");
         }
 
-        return files;
+        return `${fileName}${extension ? `.${extension}` : ""}`;
+    }
+
+    private validateFiles(files: string[], extension: FileExtension): void {
+        if (files && !files.every((file) => FileSystem.isValidPathAndFileExtension(file, extension))) {
+            throw new InvalidArgumentError("Invalid file paths");
+        }
     }
 }

@@ -2,10 +2,10 @@ import { Command, createCommand, InvalidArgumentError } from "commander";
 import { validFilesOption } from "../utils/validators/files-option.validator.js";
 import { FileExtension } from "../utils/types/file-extension.js";
 import { FileCommand } from "../utils/types/file-command.js";
-import { CommandAction } from "../utils/types/command-action.js";
+import { IAction } from "../actions/action.interface.js";
 
 export abstract class AbstractFileCommand implements FileCommand {
-    constructor(protected readonly action: CommandAction) {}
+    constructor(protected readonly action: IAction) {}
 
     public abstract build(): Command;
 

@@ -1,7 +1,7 @@
 import { Command } from "commander";
 import { RootCommand } from "./commands/root.command.js";
 
-import { FileSystem } from "./utils/helpers/file-system/file-system.js";
+import { FileSystem } from "./core/file-system/file-system.js";
 import { OptionPrompter } from "./prompts/option-prompter.js";
 import { IOptionPrompter } from "./prompts/option-prompter.interface.js";
 

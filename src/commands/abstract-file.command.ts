@@ -1,7 +1,7 @@
 import { Command, createCommand, InvalidArgumentError } from "commander";
 import { FileCommand } from "../utils/types/file-command.js";
 import { FileExtension } from "../utils/types/file-extension.js";
-import { FileSystem } from "../utils/helpers/file-system/file-system.js";
+import { FileSystem } from "../core/file-system/file-system.js";
 import { IAction } from "../actions/action.interface.js";
 
 export abstract class AbstractFileCommand implements FileCommand {

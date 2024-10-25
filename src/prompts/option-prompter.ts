@@ -2,8 +2,8 @@ import { CommandOptions } from "../utils/types/command-options.js";
 import { confirmFileSelection } from "./confirm-file-selection.prompt.js";
 import { CURR_DIR } from "../utils/constants/system-info.const.js";
 import { FileExtension } from "../utils/types/file-extension.js";
-import { IFileSystem } from "../utils/helpers/file-system/file-system.interface.js";
-import { FileSystem } from "../utils/helpers/file-system/file-system.js";
+import { IFileSystem } from "../core/file-system/file-system.interface.js";
+import { FileSystem } from "../core/file-system/file-system.js";
 
 import { enterFilePaths } from "./enter-file-paths.prompt.js";
 import { enterOutputFileName } from "./enter-output-file-name.prompt.js";

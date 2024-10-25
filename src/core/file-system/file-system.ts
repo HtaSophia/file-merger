@@ -1,7 +1,7 @@
 import { InvalidArgumentError } from "commander";
 import { existsSync, accessSync, constants } from "node:fs";
 import { readFile as fsReadFile, readdir, writeFile as fsWriteFile } from "node:fs/promises";
-import { extname, normalize } from "node:path";
+import { extname, join, normalize } from "node:path";
 
 import { FileExtension } from "../../types/file-extension.js";
 import { FORBIDDEN_CHARS_REGEX, RESERVED_NAMES_REGEX, MAX_LENGTH } from "../../constants/file-name.const.js";
@@ -80,11 +80,15 @@ export class FileSystem implements IFileSystem {
         return fsReadFile(path);
     }
 
-    public writeFile(path: string, content: string): Promise<void> {
+    public writeFile(path: string, content: Uint8Array): Promise<void> {
         if (!existsSync(path)) {
             throw new InvalidArgumentError(`Path ${path} does not exist`);
         }
 
         return fsWriteFile(path, content);
+    }
+
+    public joinPaths(...paths: string[]): string {
+        return join(...paths);
     }
 }

@@ -1,6 +1,6 @@
 import { isCancel, text } from "@clack/prompts";
 import { cancelProcess } from "../utils/helpers/clack/cancel-process.js";
-import { FileSystem } from "../utils/helpers/file-system/file-system.js";
+import { FileSystem } from "../core/file-system/file-system.js";
 
 export const enterOutputFileName = async (): Promise<string> => {
     const outputFileName = await text({

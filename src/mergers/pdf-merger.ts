@@ -1,6 +1,6 @@
 import { PDFDocument, PDFPage } from "pdf-lib";
 import { CURR_DIR } from "../utils/constants/system-info.const.js";
-import { IFileSystem } from "../utils/helpers/file-system/file-system.interface.js";
+import { IFileSystem } from "../core/file-system/file-system.interface.js";
 import { IFileMerger } from "./file-merger.interface.js";
 
 export class PdfMerger implements IFileMerger {

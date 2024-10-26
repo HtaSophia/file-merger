@@ -1,14 +1,27 @@
-import { PromptOptions } from "../prompts/helpers/prompt-options.js";
-import { FileExtension } from "../utils/types/file-extension.js";
+import { outro, spinner } from "@clack/prompts";
 import { CommandOptions } from "../utils/types/command-options.js";
-import { CommandAction } from "../utils/types/command-action.js";
+import { FileExtension } from "../utils/types/file-extension.js";
+import { IFileMerger } from "../mergers/file-merger.interface.js";
+import { IOptionPrompter } from "../prompts/option-prompter.interface.js";
 
-export class PdfAction implements CommandAction {
-    public constructor(private readonly promptOptions: PromptOptions) {}
+import { IAction } from "./action.interface.js";
+
+export class PdfAction implements IAction {
+    public constructor(private readonly optionPrompter: IOptionPrompter, private readonly pdfMerger: IFileMerger) {}
 
     public async handle(options: CommandOptions): Promise<void> {
-        const { files, output } = await this.promptOptions.handleMissingOptions(options, FileExtension.PDF);
+        const { files, output } = await this.optionPrompter.promptForMissingOptions(options, FileExtension.PDF);
 
-        console.log("files", files, "outputFileName", output);
+        const actionSpinner = spinner();
+        actionSpinner.start("merging PDF files...");
+
+        try {
+            await this.pdfMerger.merge(files, output);
+            actionSpinner.stop("PDF files merged successfully! 🎉");
+        } catch (error) {
+            actionSpinner.stop("Failed to merge PDF files.");
+            outro("Something went wrong. Please try again.");
+            console.error(error);
+        }
     }
 }

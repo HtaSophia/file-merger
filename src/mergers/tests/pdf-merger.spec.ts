@@ -7,15 +7,15 @@ import { PdfMerger } from "../pdf-merger";
 
 jest.mock("pdf-lib");
 
-describe("PdfMerger", () => {
-    const mockOptions = {
-        files: ["file1.pdf", "file2.pdf"],
-        output: "merged.pdf",
-        outputPath: `${CURR_DIR}/merged.pdf`,
-        pdfBytes: new Uint8Array([1, 2, 3]),
-        pdfBuffer: Buffer.from("pdf buffer data"),
-    };
+const mockOptions = {
+    files: ["file1.pdf", "file2.pdf"],
+    output: "merged.pdf",
+    outputPath: `${CURR_DIR}/merged.pdf`,
+    pdfBytes: new Uint8Array([1, 2, 3]),
+    pdfBuffer: Buffer.from("pdf buffer data"),
+};
 
+describe("PdfMerger", () => {
     let mockFileSystem: jest.Mocked<IFileSystem>;
 
     beforeEach(() => {

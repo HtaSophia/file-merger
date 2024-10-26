@@ -9,7 +9,7 @@ import { IAction } from "./action.interface.js";
 export class PdfAction implements IAction {
     public constructor(private readonly optionPrompter: IOptionPrompter, private readonly pdfMerger: IFileMerger) {}
 
-    public async handle(options: CommandOptions): Promise<void> {
+    public async handle(options: Partial<CommandOptions>): Promise<void> {
         const { files, output } = await this.optionPrompter.promptForMissingOptions(options, FileExtension.PDF);
 
         const actionSpinner = spinner();
@@ -18,10 +18,9 @@ export class PdfAction implements IAction {
         try {
             await this.pdfMerger.merge(files, output);
             actionSpinner.stop("PDF files merged successfully! 🎉");
-        } catch (error) {
+        } catch (error: Error | any) {
             actionSpinner.stop("Failed to merge PDF files.");
-            outro("Something went wrong. Please try again.");
-            console.error(error);
+            outro(`${error.message}. Please try again.`);
         }
     }
 }

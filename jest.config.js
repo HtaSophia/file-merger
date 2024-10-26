@@ -3,7 +3,6 @@ export default {
     preset: "ts-jest",
     testEnvironment: "node",
     rootDir: "./src",
-    displayName: "unit-tests",
     extensionsToTreatAsEsm: [".ts"],
     transform: {
         "^.+\\.(ts)$": [

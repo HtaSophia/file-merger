@@ -20,6 +20,6 @@ export default {
     moduleNameMapper: {
         "^(\\.{1,2}/.*)\\.js$": "$1",
     },
-    testMatch: ["**/test/**/?(*.)+(spec).[tj]s?(x)"],
+    testMatch: ["**/tests/**/?(*.)+(spec).[tj]s?(x)"],
     clearMocks: true,
 };

@@ -79,7 +79,15 @@ export class FileSystem implements IFileSystem {
         return fsReadFile(path);
     }
 
-    public writeFile(path: string, content: Uint8Array): Promise<void> {
+    public readFileContent(path: string): Promise<string> {
+        if (!existsSync(path)) {
+            throw new Error(`Path ${path} does not exist`);
+        }
+
+        return fsReadFile(path, "utf-8");
+    }
+
+    public writeFile(path: string, content: Uint8Array | string): Promise<void> {
         return fsWriteFile(path, content);
     }
 

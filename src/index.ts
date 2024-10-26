@@ -15,6 +15,7 @@ function main() {
     const commandFactory = new CommandFactory(fileSystem, promptOptions);
 
     program.addCommand(commandFactory.createPdfCommand());
+    program.addCommand(commandFactory.createTxtCommand());
     program.parseAsync(process.argv);
 }
 

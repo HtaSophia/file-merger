@@ -1,5 +1,5 @@
 import { outro, spinner } from "@clack/prompts";
-import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { afterAll, afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { CommandOptions } from "../../utils/types/command-options";
 import { FileExtension } from "../../utils/types/file-extension";
@@ -34,7 +34,14 @@ describe("PdfAction", () => {
         };
 
         actionSpinner = spinner();
+    });
+
+    afterEach(() => {
         jest.clearAllMocks();
+    });
+
+    afterAll(() => {
+        jest.restoreAllMocks();
     });
 
     it("should be defined", () => {

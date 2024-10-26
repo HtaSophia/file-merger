@@ -1,6 +1,6 @@
 import { FILE_SYSTEM_MOCKS } from "./file-system-mocks";
 
-import { afterEach, describe, expect, it, jest } from "@jest/globals";
+import { afterAll, afterEach, describe, expect, it, jest } from "@jest/globals";
 import { accessSync, existsSync } from "node:fs";
 import { readdir, readFile, writeFile } from "node:fs/promises";
 import { extname, join, normalize } from "node:path";
@@ -21,6 +21,10 @@ describe("FileSystem", () => {
 
     afterEach(() => {
         jest.clearAllMocks();
+    });
+
+    afterAll(() => {
+        jest.restoreAllMocks();
     });
 
     it("should be defined", () => {

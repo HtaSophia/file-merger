@@ -1,5 +1,5 @@
 import { Command, createCommand, InvalidOptionArgumentError } from "commander";
-import { FileCommand } from "../utils/types/file-command.js";
+import { FileCommand } from "./types/file-command.js";
 import { FileExtension } from "../utils/types/file-extension.js";
 import { FileSystem } from "../core/file-system/file-system.js";
 import { IAction } from "../actions/action.interface.js";

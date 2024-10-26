@@ -1,5 +1,5 @@
 import { confirm, isCancel } from "@clack/prompts";
-import { cancelProcess } from "../utils/helpers/clack/cancel-process.js";
+import { cancelProcess } from "./utils/cancel-process.js";
 
 export const confirmFileSelection = async (): Promise<boolean> => {
     const selectFromCurrentDirectory = await confirm({

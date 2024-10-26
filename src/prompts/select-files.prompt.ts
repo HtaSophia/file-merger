@@ -1,7 +1,7 @@
 import { join } from "node:path";
 import { isCancel, multiselect } from "@clack/prompts";
 import { CURR_DIR } from "../utils/constants/system-info.const.js";
-import { cancelProcess } from "../utils/helpers/clack/cancel-process.js";
+import { cancelProcess } from "./utils/cancel-process.js";
 
 export const selectFiles = async (fileNames: string[]): Promise<string[]> => {
     const selectedFiles = await multiselect({

@@ -28,7 +28,7 @@ export class OptionPrompter implements IOptionPrompter {
         const selectFromCurrentDirectory = await confirmFileSelection();
 
         if (selectFromCurrentDirectory) {
-            const pdfFileNames = await this.fileSystem.getPdfFiles(CURR_DIR);
+            const pdfFileNames = await this.fileSystem.getFilesWithExtension(CURR_DIR, fileExtension);
 
             if (pdfFileNames.length) {
                 return selectFiles(pdfFileNames);

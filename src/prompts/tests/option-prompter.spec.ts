@@ -23,7 +23,7 @@ describe("OptionPrompter", () => {
     beforeEach(() => {
         mockFileSystem = {
             getFiles: jest.fn(),
-            getPdfFiles: jest.fn(),
+            getFilesWithExtension: jest.fn(),
             readFile: jest.fn(),
             writeFile: jest.fn(),
             joinPaths: jest.fn(),
@@ -85,7 +85,7 @@ describe("OptionPrompter", () => {
                 const selectedFile = "file1.pdf";
 
                 jest.mocked(confirmFileSelection).mockResolvedValue(true);
-                mockFileSystem.getPdfFiles.mockResolvedValue(files);
+                mockFileSystem.getFilesWithExtension.mockResolvedValue(files);
                 jest.mocked(selectFiles).mockResolvedValue([selectedFile]);
 
                 const optionPrompter = new OptionPrompter(mockFileSystem);
@@ -93,7 +93,7 @@ describe("OptionPrompter", () => {
 
                 expect(confirmFileSelection).toHaveBeenCalled();
                 expect(selectFiles).toHaveBeenCalledWith(files);
-                expect(mockFileSystem.getPdfFiles).toHaveBeenCalledWith(CURR_DIR);
+                expect(mockFileSystem.getFilesWithExtension).toHaveBeenCalledWith(CURR_DIR, FileExtension.PDF);
                 expect(result.files).toEqual([`/normalized/${selectedFile}`]);
                 expect(result.output).toEqual(options.output);
             });

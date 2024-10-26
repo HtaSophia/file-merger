@@ -125,7 +125,7 @@ describe("FileSystem", () => {
         });
     });
 
-    describe("getPdfFiles method", () => {
+    describe("getFilesWithExtension method", () => {
         it("should return only PDF files", async () => {
             jest.mocked(existsSync).mockReturnValue(true);
             jest.mocked(extname)
@@ -133,7 +133,7 @@ describe("FileSystem", () => {
                 .mockImplementationOnce(() => ".txt")
                 .mockImplementationOnce(() => ".pdf");
 
-            const pdfFiles = await new FileSystem().getPdfFiles(mockedInfo.path);
+            const pdfFiles = await new FileSystem().getFilesWithExtension(mockedInfo.path, FileExtension.PDF);
 
             expect(existsSync).toHaveBeenCalledWith(mockedInfo.path);
             expect(readdir).toHaveBeenCalledWith(mockedInfo.path);

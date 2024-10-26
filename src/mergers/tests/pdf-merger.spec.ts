@@ -3,7 +3,7 @@ import { afterAll, afterEach, beforeEach, describe, expect, it, jest } from "@je
 
 import { CURR_DIR } from "../../utils/constants/system-info.const";
 import { IFileSystem } from "../../core/file-system/file-system.interface";
-import { PdfMerger } from "../pdf-merger";
+import { PdfMerger } from "../pdf.merger";
 
 jest.mock("pdf-lib");
 
@@ -23,7 +23,7 @@ describe("PdfMerger", () => {
             readFile: jest.fn(),
             writeFile: jest.fn(),
             getFiles: jest.fn(),
-            getPdfFiles: jest.fn(),
+            getFilesWithExtension: jest.fn(),
             joinPaths: jest.fn(),
         };
     });

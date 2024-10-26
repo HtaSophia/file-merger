@@ -1,4 +1,3 @@
-import { InvalidArgumentError } from "commander";
 import { existsSync, accessSync, constants } from "node:fs";
 import { readFile as fsReadFile, readdir, writeFile as fsWriteFile } from "node:fs/promises";
 import { extname, join, normalize } from "node:path";
@@ -74,7 +73,7 @@ export class FileSystem implements IFileSystem {
 
     public readFile(path: string): Promise<Buffer> {
         if (!existsSync(path)) {
-            throw new InvalidArgumentError(`Path ${path} does not exist`);
+            throw new Error(`Path ${path} does not exist`);
         }
 
         return fsReadFile(path);

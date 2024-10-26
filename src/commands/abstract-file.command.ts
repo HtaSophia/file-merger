@@ -15,10 +15,12 @@ export abstract class AbstractFileCommand implements FileCommand {
             .option("-f, --files [files...]", "list of file paths to merge", (value, previous: string[]) =>
                 this.parseFiles(value, fileExtension, previous)
             )
-            .option<string>("-o, --output [output]", "output file name", (value) => this.parseOutput(value));
+            .option<string>("-o, --output [output]", "output file name", (value) =>
+                this.parseOutput(value, fileExtension)
+            );
     }
 
-    private parseOutput(output: string): string {
+    private parseOutput(output: string, extension: FileExtension): string {
         const fileName = output.trim().split(".")[0];
         const { valid, reason } = FileSystem.isValidFileName(fileName);
 
@@ -26,7 +28,7 @@ export abstract class AbstractFileCommand implements FileCommand {
             throw new InvalidOptionArgumentError(reason ?? "Invalid output file name.");
         }
 
-        return `${fileName}.pdf`;
+        return `${fileName}${extension}`;
     }
 
     private parseFiles(file: string, extension: FileExtension, previousFiles: string[] = []): string[] {

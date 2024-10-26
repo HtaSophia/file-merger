@@ -21,6 +21,7 @@ describe("PdfMerger", () => {
     beforeEach(() => {
         mockFileSystem = {
             readFile: jest.fn(),
+            readFileContent: jest.fn(),
             writeFile: jest.fn(),
             getFiles: jest.fn(),
             getFilesWithExtension: jest.fn(),

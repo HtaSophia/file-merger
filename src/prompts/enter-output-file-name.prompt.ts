@@ -1,8 +1,9 @@
 import { isCancel, text } from "@clack/prompts";
 import { cancelProcess } from "./utils/cancel-process.js";
+import { FileExtension } from "../utils/types/file-extension.js";
 import { FileSystem } from "../core/file-system/file-system.js";
 
-export const enterOutputFileName = async (): Promise<string> => {
+export const enterOutputFileName = async (extension: FileExtension): Promise<string> => {
     const outputFileName = await text({
         message: "Enter the output file name:",
         placeholder: "mergedFiles",
@@ -14,7 +15,7 @@ export const enterOutputFileName = async (): Promise<string> => {
     }
 
     const fileName = parseOutputFileName(outputFileName as string);
-    return `${fileName}.pdf`;
+    return `${fileName}${extension}`;
 };
 
 const parseOutputFileName = (outputFileName: string): string => {

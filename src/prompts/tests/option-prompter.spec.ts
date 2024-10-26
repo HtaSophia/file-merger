@@ -25,6 +25,7 @@ describe("OptionPrompter", () => {
             getFiles: jest.fn(),
             getFilesWithExtension: jest.fn(),
             readFile: jest.fn(),
+            readFileContent: jest.fn(),
             writeFile: jest.fn(),
             joinPaths: jest.fn(),
         };

@@ -18,7 +18,7 @@ export class OptionPrompter implements IOptionPrompter {
         fileExtension: FileExtension
     ): Promise<CommandOptions> {
         const files = !options.files?.length ? await this.askForFiles(fileExtension) : options.files;
-        const output = !options.output ? await this.askForOutputFileName() : options.output;
+        const output = !options.output ? await this.askForOutputFileName(fileExtension) : options.output;
 
         const normalizedFiles = files.map((file) => FileSystem.normalizePath(file));
         return { files: normalizedFiles, output };
@@ -38,7 +38,7 @@ export class OptionPrompter implements IOptionPrompter {
         return enterFilePaths(fileExtension);
     }
 
-    private async askForOutputFileName(): Promise<string> {
-        return enterOutputFileName();
+    private async askForOutputFileName(fileExtension: FileExtension): Promise<string> {
+        return enterOutputFileName(fileExtension);
     }
 }

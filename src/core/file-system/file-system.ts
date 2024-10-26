@@ -62,13 +62,13 @@ export class FileSystem implements IFileSystem {
         return readdir(directory);
     }
 
-    public async getPdfFiles(directory: string): Promise<string[]> {
+    public async getFilesWithExtension(directory: string, extension: FileExtension): Promise<string[]> {
         if (!existsSync(directory)) {
             throw new Error(`Directory path ${directory} does not exist`);
         }
 
         const files = await this.getFiles(directory);
-        return files.filter((file) => FileSystem.hasFileExtension(file, FileExtension.PDF));
+        return files.filter((file) => FileSystem.hasFileExtension(file, extension));
     }
 
     public readFile(path: string): Promise<Buffer> {

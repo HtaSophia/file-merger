@@ -1,6 +1,6 @@
 import { Command } from "commander";
-import { PdfCommand } from "../pdf.command";
-import { FileExtension } from "../../utils/types/file-extension";
+import { PdfCommand } from "../pdf.command.js";
+import { FileExtension } from "../../utils/types/file-extension.js";
 
 export class PdfCommandMock extends PdfCommand {
     public static readonly NAME = "pdf";

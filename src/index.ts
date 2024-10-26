@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { Command } from "commander";
 import { RootCommand } from "./commands/root.command.js";
 

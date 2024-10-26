@@ -1,9 +1,12 @@
 {
     "name": "file-merger",
     "version": "1.0.0",
-    "description": "A CLI project created with nodejs to merge files",
-    "main": "index.js",
+    "description": "A simple node.js cli tool to merge files",
+    "main": "./dist/index.js",
     "type": "module",
+    "bin": {
+        "file-merger": "./dist/index.js"
+    },
     "scripts": {
         "build": "tsc",
         "start": "npm run build && node dist/index.js",
@@ -14,8 +17,17 @@
         "cli",
         "files"
     ],
+    "homepage": "https://github.com/HtaSophia/file-merger?tab=readme-ov-file#file-merger",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/HtaSophia/file-merger"
+    },
     "author": "Aghata Truta",
     "license": "MIT",
+    "engines": {
+        "node": ">=18.0.0",
+        "npm": ">=9.0.0"
+    },
     "dependencies": {
         "@clack/prompts": "^0.7.0",
         "commander": "^12.1.0",

@@ -3,8 +3,8 @@ import { existsSync, accessSync, constants } from "node:fs";
 import { readFile as fsReadFile, readdir, writeFile as fsWriteFile } from "node:fs/promises";
 import { extname, join, normalize } from "node:path";
 
-import { FileExtension } from "../../types/file-extension.js";
-import { FORBIDDEN_CHARS_REGEX, RESERVED_NAMES_REGEX, MAX_LENGTH } from "../../constants/file-name.const.js";
+import { FileExtension } from "../../utils/types/file-extension.js";
+import { FORBIDDEN_CHARS_REGEX, RESERVED_NAMES_REGEX, MAX_LENGTH } from "../../utils/constants/file-name.const.js";
 import { IFileSystem } from "./file-system.interface.js";
 
 export class FileSystem implements IFileSystem {
@@ -81,10 +81,6 @@ export class FileSystem implements IFileSystem {
     }
 
     public writeFile(path: string, content: Uint8Array): Promise<void> {
-        if (!existsSync(path)) {
-            throw new InvalidArgumentError(`Path ${path} does not exist`);
-        }
-
         return fsWriteFile(path, content);
     }
 

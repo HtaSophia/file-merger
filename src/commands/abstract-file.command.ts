@@ -20,14 +20,14 @@ export abstract class AbstractFileCommand implements FileCommand {
     }
 
     private parseOutput(output: string): string {
-        const [fileName, extension] = output.trim().split(".")[0];
+        const fileName = output.trim().split(".")[0];
         const { valid, reason } = FileSystem.isValidFileName(fileName);
 
         if (!valid) {
             throw new InvalidArgumentError(reason ?? "Invalid output file name");
         }
 
-        return `${fileName}${extension ? `.${extension}` : ""}`;
+        return `${fileName}.pdf`;
     }
 
     private validateFiles(files: string[], extension: FileExtension): void {

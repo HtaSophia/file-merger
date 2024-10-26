@@ -13,13 +13,12 @@ export const enterOutputFileName = async (): Promise<string> => {
         cancelProcess();
     }
 
-    const { fileName, extension } = splitOutputFileName(outputFileName as string);
-    return `${fileName}${extension ? `.${extension}` : ""}`;
+    const fileName = parseOutputFileName(outputFileName as string);
+    return `${fileName}.pdf`;
 };
 
-const splitOutputFileName = (outputFileName: string): { fileName: string; extension?: string } => {
-    const [fileName, extension] = outputFileName.trim().split(".");
-    return { fileName, extension };
+const parseOutputFileName = (outputFileName: string): string => {
+    return outputFileName.trim().split(".")[0];
 };
 
 const validateOutputFileName = (outputFileName: string): string | void => {
@@ -27,7 +26,7 @@ const validateOutputFileName = (outputFileName: string): string | void => {
         return "Output file name cannot be empty.";
     }
 
-    const { fileName } = splitOutputFileName(outputFileName);
+    const fileName = parseOutputFileName(outputFileName);
     const { valid, reason } = FileSystem.isValidFileName(fileName);
     if (!valid) return reason;
 };

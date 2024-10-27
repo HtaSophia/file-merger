@@ -33,6 +33,8 @@ export class OptionPrompter implements IOptionPrompter {
             if (pdfFileNames.length) {
                 return selectFiles(pdfFileNames);
             }
+
+            console.log(`No ${fileExtension} files found in the current directory. Please select the files manually.`);
         }
 
         return enterFilePaths(fileExtension);

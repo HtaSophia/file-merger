@@ -9,6 +9,7 @@ A command line interface (CLI) to merge multiple files (PDF and TXT) into a sing
 -   [Commands](#commands)
 -   [Examples](#examples)
 -   [Folder Structure](#folder-structure)
+-   [Testing](#testing)
 -   [License](#license)
 
 ## Installation
@@ -124,6 +125,16 @@ You can find some examples in the [`examples`](examples) folder.
 |   └── txts        # TXT files
 └── README.md
 ```
+
+## Testing
+
+The project uses [Jest](https://jestjs.io/) for testing. To run the tests, run the following command:
+
+```bash
+npm run test
+```
+
+The tests are located in the `tests` directory of each module.
 
 ## License
 

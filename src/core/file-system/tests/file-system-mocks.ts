@@ -14,6 +14,3 @@ export const FILE_SYSTEM_MOCKS = {
     pdfFiles: ["file1.pdf", "file2.pdf"],
     txtFile: "file1.txt",
 };
-
-// const pdf1Path = resolve(__dirname, "../../../../test/files/", "test1.pdf");
-// const pdf2Path = resolve(__dirname, "../../../../test/files/", "test2.pdf");

@@ -37,16 +37,16 @@ describe("PdfMerger", () => {
         jest.restoreAllMocks();
     });
 
+    it("should be defined", () => {
+        expect(PdfMerger).toBeDefined();
+    });
+
+    it("should be an instance of PdfMerger", () => {
+        const pdfMerger = new PdfMerger(mockFileSystem);
+        expect(pdfMerger).toBeDefined();
+    });
+
     describe("merge", () => {
-        it("should be defined", () => {
-            expect(PdfMerger).toBeDefined();
-        });
-
-        it("should be an instance of PdfMerger", () => {
-            const pdfMerger = new PdfMerger(mockFileSystem);
-            expect(pdfMerger).toBeDefined();
-        });
-
         it("should merge PDF files and write to the output file", async () => {
             mockFileSystem.joinPaths.mockReturnValue(mockOptions.outputPath);
             mockFileSystem.readFile.mockResolvedValue(mockOptions.pdfBuffer);

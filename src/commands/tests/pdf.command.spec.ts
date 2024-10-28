@@ -1,8 +1,8 @@
 import { afterAll, afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { IAction } from "../../actions/action.interface";
-import { PdfCommandMock } from "./pdf.command.mock";
 import { FileExtension } from "../../utils/types/file-extension";
 import { FileSystem } from "../../core/file-system/file-system";
+import { PdfCommand } from "../pdf.command";
 
 jest.mock("../../core/file-system/file-system");
 
@@ -24,20 +24,20 @@ describe("PdfCommand", () => {
     });
 
     it("should be defined", () => {
-        expect(PdfCommandMock).toBeDefined();
+        expect(PdfCommand).toBeDefined();
     });
 
-    it("should be an instance of PdfCommandMock", () => {
-        const pdfCommand = new PdfCommandMock(pdfActionMock);
+    it("should be an instance of PdfCommand", () => {
+        const pdfCommand = new PdfCommand(pdfActionMock);
         expect(pdfCommand).toBeDefined();
     });
 
     it("should create a command with the correct name, description and options", () => {
-        const pdfCommand = new PdfCommandMock(pdfActionMock);
-        const command = pdfCommand.create(PdfCommandMock.NAME, PdfCommandMock.DESCRIPTION, FileExtension.PDF);
+        const pdfCommand = new PdfCommand(pdfActionMock);
+        const command = pdfCommand.build();
 
-        expect(command.name()).toBe(PdfCommandMock.NAME);
-        expect(command.description()).toBe(PdfCommandMock.DESCRIPTION);
+        expect(command.name()).toBe("pdf");
+        expect(command.description()).toBe("merges PDF files");
         expect(command.options).toHaveLength(2);
         expect(command.options[0].flags).toBe("-f, --files [files...]");
         expect(command.options[1].flags).toBe("-o, --output [output]");
@@ -54,7 +54,7 @@ describe("PdfCommand", () => {
         it("should call isValidPathAndFileExtension with correct arguments for files", async () => {
             (FileSystem.isValidPathAndFileExtension as jest.Mock).mockReturnValueOnce(true);
 
-            const pdfCommand = new PdfCommandMock(pdfActionMock);
+            const pdfCommand = new PdfCommand(pdfActionMock);
             const command = pdfCommand.build();
             await command.parseAsync(["-f", validFile], { from: "user" });
 
@@ -67,7 +67,7 @@ describe("PdfCommand", () => {
                 throw new Error(`process.exit: ${code}`);
             });
 
-            const pdfCommand = new PdfCommandMock(pdfActionMock);
+            const pdfCommand = new PdfCommand(pdfActionMock);
             const command = pdfCommand.build();
 
             try {
@@ -83,7 +83,7 @@ describe("PdfCommand", () => {
         it("should call isValidFileName and append .pdf for output", async () => {
             (FileSystem.isValidFileName as jest.Mock).mockReturnValueOnce({ valid: true });
 
-            const pdfCommand = new PdfCommandMock(pdfActionMock);
+            const pdfCommand = new PdfCommand(pdfActionMock);
             const command = pdfCommand.build();
 
             const outputFileName = "mergedOutput";
@@ -99,7 +99,7 @@ describe("PdfCommand", () => {
                 throw new Error(`process.exit: ${code}`);
             });
 
-            const pdfCommand = new PdfCommandMock(pdfActionMock);
+            const pdfCommand = new PdfCommand(pdfActionMock);
             const command = pdfCommand.build();
 
             try {
@@ -122,7 +122,7 @@ describe("PdfCommand", () => {
         jest.mocked(FileSystem.isValidPathAndFileExtension).mockReturnValue(true);
         jest.mocked(FileSystem.isValidFileName).mockReturnValueOnce({ valid: true });
 
-        const pdfCommand = new PdfCommandMock(pdfActionMock);
+        const pdfCommand = new PdfCommand(pdfActionMock);
         const command = pdfCommand.build();
         await command.parseAsync(["-f", mockOptions.files[0], "-f", mockOptions.files[1], "-o", mockOptions.output], {
             from: "user",

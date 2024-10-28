@@ -17,9 +17,9 @@ jest.mock("@clack/prompts", () => ({
 jest.mock("../../prompts/option-prompter");
 jest.mock("../../core/file-system/file-system");
 
-describe("PdfAction", () => {
-    const mockOptions: CommandOptions = { files: ["/path/to/file1.pdf", "/path/to/file2.pdf"], output: "output.pdf" };
+const mockOptions: CommandOptions = { files: ["/path/to/file1.pdf", "/path/to/file2.pdf"], output: "output.pdf" };
 
+describe("PdfAction", () => {
     let mockOptionPrompter: jest.Mocked<IOptionPrompter>;
     let mockPdfMerger: jest.Mocked<IFileMerger>;
     let actionSpinner: ReturnType<typeof spinner>;

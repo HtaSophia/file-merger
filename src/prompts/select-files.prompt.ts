@@ -5,14 +5,14 @@ import { cancelProcess } from "./utils/cancel-process.js";
 
 export const selectFiles = async (fileNames: string[]): Promise<string[]> => {
     const selectedFiles = await multiselect({
-        message: "Select the PDF files to merge:",
+        message: "Select the files to merge:",
         options: fileNames.map((fileName) => ({
             value: fileName,
             label: fileName,
         })),
     });
 
-    if (isCancel(selectFiles)) {
+    if (isCancel(selectedFiles)) {
         cancelProcess();
     }
 
